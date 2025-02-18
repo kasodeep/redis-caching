@@ -24,7 +24,7 @@ public class CacheConfig {
     }
 
     @Bean
-    public RedisCacheConfiguration cacheConfiguration(ObjectMapper jacksonObjectMapper) {
+    public RedisCacheConfiguration cacheConfiguration(ObjectMapper ignoredJacksonObjectMapper) {
         BasicPolymorphicTypeValidator polymorphicTypeValidator =
                 BasicPolymorphicTypeValidator.builder()
                         .allowIfSubType(Programmer.class) // Allow the Programmer class.
