@@ -3,6 +3,7 @@ package com.dev.deep.caching.service;
 import com.dev.deep.caching.entity.Programmer;
 import com.dev.deep.caching.repository.ProgrammerRepository;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.persistence.EntityNotFoundException;
@@ -51,6 +52,7 @@ public class ProgrammerService {
     /**
      * Method to update the programmer, and change its values.
      */
+    @CircuitBreaker(name = "programmerService", fallbackMethod = "getProgrammerFallback")
     @CacheEvict(value = "programmers", key = "'all'")
     @CachePut(value = "programmers", key = "#id")
     public Programmer updateProgrammer(Long id, Programmer programmer) {

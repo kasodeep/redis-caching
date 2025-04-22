@@ -16,6 +16,9 @@ import java.time.Duration;
 @Configuration
 public class CacheConfig {
 
+    /**
+     * The manager customizer allows us to override the cache config from below.
+     * */
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
         return (builder) -> builder
@@ -23,6 +26,9 @@ public class CacheConfig {
                         RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5)));
     }
 
+    /**
+     * Cache configuration allows us specify general specifications for all cacheable objects.
+     * */
     @Bean
     public RedisCacheConfiguration cacheConfiguration(ObjectMapper ignoredJacksonObjectMapper) {
         BasicPolymorphicTypeValidator polymorphicTypeValidator =
